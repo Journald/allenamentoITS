@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Cyber Security Specialist</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 16px;
+    background: #f0f2f5;
+    color: #222;
+    line-height: 1.5;
+  }
+  h1 { color: #2c3e50; text-align: center; font-size: 1.6em; margin: 10px 0 20px; }
+
+  .card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 16px;
+  }
+
+  .progress-wrap {
+    background: #e0e0e0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .progress-bar {
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    height: 100%;
+    width: 0;
+    transition: width 0.4s ease;
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .stat-row b { color: #111; }
+
+  .numero-domanda {
+    color: #888;
+    font-size: 0.8em;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .domanda-testo {
+    font-size: 1.1em;
+    line-height: 1.45;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+
+  .opzione {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 16px;
+    margin: 9px 0;
+    border: 2px solid #dfe3e8;
+    border-radius: 10px;
+    background: #fafbfc;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 0.98em;
+  }
+  .opzione:hover {
+    background: #eef4ff;
+    border-color: #b3c7ff;
+  }
+  .opzione .lettera {
+    font-weight: bold;
+    color: #4a6cf7;
+    min-width: 22px;
+  }
+  .opzione.disabilitata { cursor: default; pointer-events: none; }
+  .opzione.corretta {
+    background: #e6f7ec;
+    border-color: #2ecc71;
+  }
+  .opzione.corretta .lettera { color: #27ae60; }
+  .opzione.sbagliata {
+    background: #fdecea;
+    border-color: #e74c3c;
+  }
+  .opzione.sbagliata .lettera { color: #c0392b; }
+
+  .feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+  .feedback.ok { background: #e6f7ec; color: #1e7e34; }
+  .feedback.ko { background: #fdecea; color: #a71d2a; }
+
+  button {
+    padding: 14px 28px;
+    font-size: 1em;
+    font-weight: 600;
+    background: #4a6cf7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+  button:hover { background: #3a56d4; }
+  button:active { transform: scale(0.98); }
+  button.secondary { background: #6c757d; }
+  button.secondary:hover { background: #565e64; }
+
+  .center { text-align: center; }
+  .nascosto { display: none !important; }
+
+  .risultato-finale { text-align: center; }
+  .risultato-finale .big {
+    font-size: 3em;
+    font-weight: 800;
+    margin: 10px 0;
+    color: #2c3e50;
+  }
+  .risultato-finale .pct { font-size: 1.3em; color: #555; }
+  .risultato-finale .msg { font-size: 1.15em; margin: 22px 0; }
+
+  .error-box {
+    background: #fdecea;
+    color: #a71d2a;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  .error-box code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 10px; }
+    .card { padding: 16px; }
+    .domanda-testo { font-size: 1.02em; }
+    .opzione { padding: 11px 13px; font-size: 0.95em; }
+    .risultato-finale .big { font-size: 2.2em; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🎯 Quiz Cyber Security Specialist</h1>
+
+<!-- SCHERMATA START -->
+<div id="schermata-start" class="card center">
+  <h2>Pronto a metterti alla prova?</h2>
+  <p>Verranno estratte <b>35 domande casuali</b> dal database.</p>
+  <p style="color:#666;font-size:0.9em">Database: <b id="num-tot">...</b> domande disponibili</p>
+  <button onclick="iniziaQuiz()">🚀 Inizia Quiz</button>
+</div>
+
+<!-- SCHERMATA QUIZ -->
+<div id="schermata-quiz" class="nascosto">
+  <div class="card">
+    <div class="progress-wrap">
+      <div class="progress-bar" id="barra"></div>
+    </div>
+    <div class="stat-row">
+      <span>Domanda <b id="num-corrente">1</b> / <b id="num-totale">35</b></span>
+      <span>✅ <b id="punteggio-giuste">0</b> &nbsp; ❌ <b id="punteggio-sbagliate">0</b></span>
+    </div>
+    <div id="contenitore-domanda"></div>
+  </div>
+</div>
+
+<!-- SCHERMATA RISULTATO -->
+<div id="schermata-risultato" class="card risultato-finale nascosto">
+  <h2>🏁 Quiz completato!</h2>
+  <div class="big" id="risultato-punteggio">0 / 35</div>
+  <div class="pct" id="risultato-percentuale">0%</div>
+  <div class="msg" id="risultato-messaggio"></div>
+  <button onclick="resetQuiz()">🔄 Ricomincia con nuove domande</button>
+</div>
+
+<script>
+const NUM_DOMANDE = 35;
+let DB = [];
+let domandeCorrenti = [];
+let indiceCorrente = 0;
+let giuste = 0;
+let sbagliate = 0;
+let risposto = false;
+
+async function caricaDB() {
+  try {
+    const res = await fetch('database.json');
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    DB = await res.json();
+    document.getElementById('num-tot').textContent = DB.length;
+    console.log("✅ Database caricato:", DB.length, "domande");
+  } catch (e) {
+    document.body.innerHTML = `
+      <div class="card">
+        <h2>❌ Errore nel caricamento</h2>
+        <div class="error-box">
+          <p>Non riesco a caricare <code>database.json</code>.</p>
+          <p><b>Dettaglio:</b> ${e.message}</p>
+        </div>
+        <p>Se stai aprendo il file con <code>file://</code>, il browser blocca il caricamento per motivi di sicurezza.</p>
+        <p><b>Soluzione:</b></p>
+        <ul style="text-align:left">
+          <li>Su GitHub Pages: assicurati che <code>database.json</code> sia nella stessa cartella di <code>index.html</code></li>
+          <li>In locale: avvia un server con <code>python -m http.server 8000</code> e apri <code>http://localhost:8000</code></li>
+        </ul>
+      </div>`;
+  }
+}
+
+function mescola(a) {
+  const arr = a.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function iniziaQuiz() {
+  if (DB.length === 0) return alert("Database vuoto");
+  document.getElementById('schermata-start').classList.add('nascosto');
+  document.getElementById('schermata-risultato').classList.add('nascosto');
+  document.getElementById('schermata-quiz').classList.remove('nascosto');
+
+  domandeCorrenti = mescola(DB).slice(0, Math.min(NUM_DOMANDE, DB.length));
+  indiceCorrente = 0;
+  giuste = 0;
+  sbagliate = 0;
+  risposto = false;
+  document.getElementById('num-totale').textContent = domandeCorrenti.length;
+  document.getElementById('punteggio-giuste').textContent = '0';
+  document.getElementById('punteggio-sbagliate').textContent = '0';
+  document.getElementById('barra').style.width = '0%';
+
+  mostraDomanda();
+}
+
+function mostraDomanda() {
+  if (indiceCorrente >= domandeCorrenti.length) {
+    return mostraRisultato();
+  }
+
+  risposto = false;
+  const q = domandeCorrenti[indiceCorrente];
+  document.getElementById('num-corrente').textContent = indiceCorrente + 1;
+
+  document.getElementById('barra').style.width =
+    ((indiceCorrente) / domandeCorrenti.length * 100) + '%';
+
+  const cont = document.getElementById('contenitore-domanda');
+  cont.innerHTML = `
+    <div class="numero-domanda">Domanda ${indiceCorrente + 1} di ${domandeCorrenti.length}</div>
+    <div class="domanda-testo">${escapeHtml(q.domanda)}</div>
+    <div id="opzioni-container"></div>
+    <div id="feedback-container"></div>
+  `;
+
+  const optsCont = document.getElementById('opzioni-container');
+  const opzioniMescolate = mescola(q.opzioni);
+
+  opzioniMescolate.forEach(o => {
+    const div = document.createElement('div');
+    div.className = 'opzione';
+    div.innerHTML = `<span class="lettera">${o.lettera})</span><span>${escapeHtml(o.testo)}</span>`;
+    div.onclick = () => rispondi(o.lettera, q.risposta_corretta, div);
+    optsCont.appendChild(div);
+  });
+}
+
+function rispondi(scelta, corretta, divCliccato) {
+  if (risposto) return;
+  risposto = true;
+
+  const container = document.getElementById('opzioni-container');
+  const tutte = container.querySelectorAll('.opzione');
+  tutte.forEach(o => o.classList.add('disabilitata'));
+
+  tutte.forEach(o => {
+    const lettera = o.querySelector('.lettera').textContent.trim()[0];
+    if (lettera === corretta) o.classList.add('corretta');
+  });
+
+  const fb = document.getElementById('feedback-container');
+  if (scelta === corretta) {
+    giuste++;
+    fb.innerHTML = `<div class="feedback ok">✅ Corretto!</div>`;
+  } else {
+    sbagliate++;
+    divCliccato.classList.add('sbagliata');
+    fb.innerHTML = `<div class="feedback ko">❌ Sbagliato. La risposta corretta era: <b>${corretta}</b></div>`;
+  }
+
+  document.getElementById('punteggio-giuste').textContent = giuste;
+  document.getElementById('punteggio-sbagliate').textContent = sbagliate;
+
+  document.getElementById('barra').style.width =
+    ((indiceCorrente + 1) / domandeCorrenti.length * 100) + '%';
+
+  indiceCorrente++;
+  setTimeout(mostraDomanda, 1500);
+}
+
+function mostraRisultato() {
+  document.getElementById('schermata-quiz').classList.add('nascosto');
+  document.getElementById('schermata-risultato').classList.remove('nascosto');
+
+  const tot = domandeCorrenti.length;
+  const perc = Math.round(giuste / tot * 100);
+  document.getElementById('risultato-punteggio').textContent = `${giuste} / ${tot}`;
+  document.getElementById('risultato-percentuale').textContent = `${perc}%`;
+
+  let msg = "";
+  if (perc >= 90) msg = "🏆 Eccellente! Sei pronto per l'esame.";
+  else if (perc >= 75) msg = "🎉 Ottimo lavoro!";
+  else if (perc >= 60) msg = "👍 Buono, ma puoi migliorare.";
+  else msg = "💪 Continua ad allenarti!";
+  document.getElementById('risultato-messaggio').textContent = msg;
+}
+
+function resetQuiz() {
+  iniziaQuiz();
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
+
+window.addEventListener('load', caricaDB);
+</script>
+</body>
+</html>
