@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12243a">
+  <title>Cyber3 · Allenamento esame</title>
+  <style>
+    :root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#18263b;background:#f3f6fa;line-height:1.5}
+    *{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}
+    .top{background:#12243a;color:#fff;padding:18px max(20px,calc((100vw - 1100px)/2));display:flex;justify-content:space-between;align-items:center;gap:15px}
+    .brand{font-size:1.15rem;font-weight:800;letter-spacing:.02em}.brand span{color:#6fe0c2}.top small{color:#becbda}
+    .wrap{max-width:1100px;margin:32px auto;padding:0 20px 70px}.tabs{display:flex;gap:8px;margin-bottom:22px}.tabs button{border:0;border-radius:11px;padding:11px 17px;background:#e4eaf2;color:#30435c;font-weight:700}.tabs button.active{background:#12243a;color:white}
+    .card{background:white;border:1px solid #e0e8f0;box-shadow:0 8px 35px #152c4810;border-radius:20px;padding:27px;margin-bottom:18px}.hero{background:linear-gradient(125deg,#15304c,#176b70);color:white;border:0}.hero h1{font-size:clamp(1.65rem,4vw,2.6rem);margin:4px 0 10px;line-height:1.15}.hero p{color:#d5e9ec;max-width:660px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:.77rem;font-weight:800;color:#92eed9}
+    h2{margin:0 0 12px;font-size:1.35rem}h3{margin:0 0 10px;font-size:1rem}p{margin:8px 0 16px}.muted{color:#66788b}.hero .muted{color:#d5e9ec}
+    .btn{border:1px solid #183e58;background:#153d59;color:#fff;border-radius:11px;padding:11px 17px;font-weight:700}.btn:hover{filter:brightness(1.11)}.btn:disabled{opacity:.48;cursor:not-allowed}.btn.secondary{background:#fff;color:#183e58}.btn.ghost{border-color:#cfdae5;background:#fff;color:#243950}.hero .btn{background:#77e6c8;border-color:#77e6c8;color:#0d3140}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.statline{display:flex;gap:26px;flex-wrap:wrap;margin-top:20px}.stat strong{font-size:1.3rem;display:block}.stat span{font-size:.84rem;color:#d5e9ec}
+    .progress{height:9px;background:#e7edf3;border-radius:99px;overflow:hidden;margin:14px 0 23px}.progress>div{height:100%;background:#28a889;width:0;transition:width .2s}.pill{display:inline-block;background:#e7f4f1;color:#167965;border-radius:99px;padding:5px 11px;font-size:.78rem;font-weight:700}.question{font-size:clamp(1.15rem,2.5vw,1.5rem);font-weight:750;line-height:1.35;margin:16px 0 22px;white-space:pre-wrap}
+    .options{display:grid;gap:10px}.option{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:14px 16px;background:#fafcfe;border:1.5px solid #dce5ee;border-radius:12px;color:#1c2d42;white-space:pre-wrap}.option:hover:not(:disabled){border-color:#278a82;background:#f3fbf9}.option .letter{flex:none;background:#e9eef4;border-radius:7px;min-width:28px;text-align:center;padding:2px 4px;font-weight:750}.option.selected{border-color:#258c80;background:#e8f8f4}.option.correct{border-color:#278e68;background:#dff5e9}.option.incorrect{border-color:#c7535b;background:#fff0f0}.option:disabled{cursor:default}.feedback{padding:12px 15px;border-radius:10px;font-weight:700;margin-top:16px}.feedback.good{background:#e1f6ea;color:#176b43}.feedback.bad{background:#fff0ef;color:#a52b3b}.notice{padding:13px 16px;background:#fff7e6;color:#76540c;border-radius:11px}.hidden{display:none!important}
+    .topic{border:1px solid #e0e8ee;border-radius:13px;padding:15px;margin:9px 0}.topic .topic-name{font-weight:720}.topic .track{height:7px;background:#e8edf2;border-radius:99px;margin-top:10px;overflow:hidden}.topic .track div{height:100%;background:#2eaa90}.topic button{border:0;background:transparent;color:#175e73;text-decoration:underline;padding:0;text-align:left;font-weight:700}.topic-details{padding:8px 0 0;max-height:320px;overflow:auto}.topic-details li{padding:5px 0;color:#40556c}.topic-details .seen{color:#13835d}.topic-details .unseen{color:#8a98a9}.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:17px 0}.summary-grid div{border-radius:13px;background:#f1f6fa;padding:15px}.summary-grid strong{display:block;font-size:1.6rem}.tiny{font-size:.85rem}.error{border-color:#f0c2c2;color:#8d2730;background:#fff6f6}
+    .gate{position:fixed;inset:0;z-index:100;background:#10253ae8;display:grid;place-items:center;padding:20px}.gate-box{width:min(100%,370px);background:white;border-radius:19px;padding:28px;box-shadow:0 25px 80px #06142280}.gate-box h2{margin:5px 0 8px}.gate-box p{color:#627589}.gate-box input{width:100%;padding:12px 14px;border:1.5px solid #cbd8e4;border-radius:10px;font-size:1.25rem;letter-spacing:.25em;text-align:center}.gate-box .btn{width:100%;margin-top:14px}.pin-error{color:#a42c38!important;min-height:1.4em;font-size:.9rem;margin:8px 0 0!important}
+    @media(max-width:640px){.top{padding:16px 20px}.wrap{margin-top:20px}.card{padding:20px}.summary-grid{grid-template-columns:1fr 1fr}.tabs button{flex:1}.statline{gap:18px}}
+  </style>
+</head>
+<body>
+  <div id="pinGate" class="gate" role="dialog" aria-modal="true" aria-labelledby="pinTitle"><form id="pinForm" class="gate-box"><div class="eyebrow" style="color:#177965">CYBER3</div><h2 id="pinTitle">Inserisci il PIN</h2><p>Un piccolo passaggio prima di iniziare il quiz.</p><input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" aria-label="PIN a quattro cifre" required><button class="btn" type="submit">Entra</button><p id="pinError" class="pin-error" role="alert"></p></form></div>
+  <header class="top" inert><div class="brand">CYBER<span>3</span> <small>· quiz esame</small></div><small id="loadStatus">Caricamento domande…</small></header>
+  <main class="wrap" inert>
+    <nav class="tabs" aria-label="Sezioni"><button id="tabQuiz" class="active" type="button">Allenamento</button><button id="tabTopics" type="button">Argomenti e progresso</button></nav>
+    <section id="quizView">
+      <div id="home" class="card hero"><div class="eyebrow">Preparazione esame</div><h1>Allenati, una domanda alla volta.</h1><p>Ogni prova estrae 35 domande casuali dall'intero archivio. Scopri subito se hai risposto bene e riprendi quando vuoi.</p><div class="statline"><div class="stat"><strong id="homeTotal">—</strong><span>domande disponibili</span></div><div class="stat"><strong id="homeSeen">—</strong><span>domande diverse già affrontate</span></div></div><div class="actions"><button id="startBtn" class="btn" type="button" disabled>Inizia quiz di 35 domande</button><button id="resumeBtn" class="btn secondary hidden" type="button">Riprendi il quiz</button></div><div class="actions"><button id="homeExportBtn" class="btn secondary" type="button">Esporta progresso</button><button id="homeImportBtn" class="btn secondary" type="button">Importa progresso</button></div><p class="muted tiny">Per continuare su un altro dispositivo: esporta qui il progresso e importalo sull'altro. Le domande già risposte possono ricomparire.</p></div>
+      <div id="quizCard" class="card hidden"><div class="row"><span class="pill" id="quizTopic"></span><span class="muted" id="quizPosition"></span></div><div class="progress" aria-label="Avanzamento del quiz"><div id="quizProgress"></div></div><div class="question" id="questionText"></div><div class="options" id="options"></div><div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div><div class="actions"><button class="btn ghost" id="prevBtn" type="button">← Indietro</button><button class="btn secondary hidden" id="confirmBtn" type="button">Conferma risposta</button><button class="btn" id="nextBtn" type="button">Avanti →</button><button class="btn ghost" id="finishBtn" type="button">Termina quiz</button></div><p class="muted tiny">Puoi tornare indietro; una risposta confermata non cambia. Il progresso si salva automaticamente su questo browser.</p></div>
+      <div id="results" class="card hidden"><h2>Risultato del quiz</h2><div class="summary-grid"><div><strong id="resultCorrect">0</strong>giuste</div><div><strong id="resultWrong">0</strong>sbagliate</div><div><strong id="resultUnanswered">0</strong>senza risposta</div></div><h2 id="resultPercent"></h2><p class="muted">Percentuale calcolata sulle 35 domande; quelle non risposte non sono conteggiate come giuste.</p><div class="actions"><button id="restartBtn" class="btn" type="button">Nuovo quiz casuale</button><button id="reviewBtn" class="btn ghost" type="button">Rivedi le domande</button></div></div>
+    </section>
+    <section id="topicsView" class="hidden"><div class="card"><div class="row"><div><h2>Argomenti e progresso</h2><p class="muted">Il numero indica quante domande distinte hai risposto almeno una volta, anche se erano sbagliate.</p></div><span class="pill" id="topicsGrand"></span></div><div id="topicList"></div><div class="actions"><button id="exportBtn" class="btn secondary" type="button">Esporta progresso</button><label class="btn ghost" for="progressFile">Importa progresso</label><input id="progressFile" type="file" accept=".json,application/json" class="hidden"><button id="resetBtn" class="btn ghost" type="button">Azzera domande già risposte</button></div><p class="tiny muted">Il progresso resta su questo browser. Per spostarlo su un altro dispositivo, esporta il file qui e importalo dall'altro. Le domande già affrontate possono sempre ricomparire nei quiz casuali.</p></div></section>
+    <div id="loadError" class="card error hidden"><h2>Non riesco a caricare le domande</h2><p id="errorText"></p><label class="btn" for="jsonFile">Seleziona il file JSON</label><input type="file" id="jsonFile" accept=".json,application/json" class="hidden"><p class="tiny">Su GitHub Pages metti <code>index.html</code> e <code>quiz_cyber3_pronto.json</code> nella stessa cartella. Aprendo l'HTML direttamente dal computer, puoi selezionare manualmente il JSON.</p></div>
+  </main>
+  <script>
+  (() => {
+    'use strict';
+    const DATA_FILE = 'quiz_cyber3_pronto.json';
+    const PROGRESS_KEY = 'cyber3-progress-v1';
+    const SESSION_KEY = 'cyber3-session-v1';
+    const $ = id => document.getElementById(id);
+    $('pinForm').addEventListener('submit', e => {
+      e.preventDefault();
+      if ($('pinInput').value === '2323') {
+        $('pinGate').classList.add('hidden');document.querySelector('header.top').inert=false;document.querySelector('main.wrap').inert=false;
+        $('pinInput').value='';$('pinError').textContent='';
+      } else { $('pinError').textContent='PIN non corretto. Riprova.';$('pinInput').value='';$('pinInput').focus(); }
+    });
+    $('pinInput').focus();
+    let data, byId, progress = {}, session = null, activeTab = 'quiz';
+    const safeRead = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
+    const save = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); } catch { $('loadStatus').textContent = 'Salvataggio locale non disponibile'; } };
+    function validate(value) {
+      if (!value || !Array.isArray(value.questions) || !value.questions.length) throw new Error('Il JSON non contiene domande.');
+      for (const q of value.questions) {
+        if (!q.id || !q.question || !q.topic || !Array.isArray(q.options) || !Array.isArray(q.correct_answers) || !q.correct_answers.length || !q.correct_answers.every(a => q.options.some(o => o.key === a))) throw new Error('Una domanda del JSON non ha il formato previsto.');
+      }
+      return value;
+    }
+    function init(value) {
+      data = validate(value); byId = new Map(data.questions.map(q => [q.id, q]));
+      progress = safeRead(PROGRESS_KEY, {}); if (typeof progress !== 'object' || Array.isArray(progress)) progress = {};
+      session = safeRead(SESSION_KEY, null);
+      if (session && (!Array.isArray(session.ids) || session.ids.some(id => !byId.has(id)) || !Array.isArray(session.answers))) session = null;
+      $('loadStatus').textContent = `${data.questions.length} domande caricate`;
+      $('loadError').classList.add('hidden'); $('startBtn').disabled = false;
+      refreshHome(); renderTopics(); if (session && !session.finished) $('resumeBtn').classList.remove('hidden');
+    }
+    async function load() {
+      try { const response = await fetch(DATA_FILE, {cache:'no-cache'}); if (!response.ok) throw new Error(`HTTP ${response.status}`); init(await response.json()); }
+      catch (err) { $('loadStatus').textContent = 'JSON non caricato'; $('loadError').classList.remove('hidden'); $('errorText').textContent = 'Assicurati che il JSON sia accanto a index.html oppure sceglilo qui sotto. Dettaglio: ' + err.message; }
+    }
+    $('jsonFile').addEventListener('change', async e => { try { const file=e.target.files[0]; if (file) init(JSON.parse(await file.text())); } catch(err) { $('errorText').textContent='File non valido: '+err.message; } });
+    function switchTab(tab) {
+      activeTab=tab; $('quizView').classList.toggle('hidden',tab!=='quiz'); $('topicsView').classList.toggle('hidden',tab!=='topics');
+      $('tabQuiz').classList.toggle('active',tab==='quiz'); $('tabTopics').classList.toggle('active',tab==='topics'); if (tab==='topics') renderTopics();
+    }
+    $('tabQuiz').onclick=()=>switchTab('quiz'); $('tabTopics').onclick=()=>switchTab('topics');
+    $('homeExportBtn').onclick=()=>$('exportBtn').click();
+    $('homeImportBtn').onclick=()=>$('progressFile').click();
+    $('resetBtn').onclick=()=>{
+      if (!confirm('Vuoi azzerare tutte le domande già risposte? Verrà cancellato anche il quiz in corso su questo dispositivo. Non puoi annullare questa operazione; puoi prima esportare un backup.')) return;
+      progress={};session=null;save(PROGRESS_KEY,progress);save(SESSION_KEY,session);
+      $('quizCard').classList.add('hidden');$('results').classList.add('hidden');$('home').classList.remove('hidden');
+      refreshHome();renderTopics();
+    };
+    $('exportBtn').onclick=()=>{
+      const payload={format:'cyber3-progress',version:1,exportedAt:new Date().toISOString(),progress};
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='cyber3-progresso.json';
+      document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    };
+    $('progressFile').onchange=async e=>{
+      const file=e.target.files[0]; if (!file) return;
+      try {
+        const backup=JSON.parse(await file.text());
+        if (backup.format!=='cyber3-progress' || backup.version!==1 || !backup.progress || typeof backup.progress!=='object' || Array.isArray(backup.progress)) throw new Error('Il file non è un backup del progresso Cyber3.');
+        const entries=Object.entries(backup.progress).filter(([id,value])=>byId.has(id) && value && typeof value==='object' && !Array.isArray(value));
+        if (!confirm(`Importare ${entries.length} domande affrontate? Il progresso già presente su questo dispositivo verrà mantenuto e unito a quello importato.`)) return;
+        for (const [id,value] of entries) {
+          const old=progress[id];
+          progress[id]=old ? {
+            firstAnsweredAt:old.firstAnsweredAt || value.firstAnsweredAt,
+            lastAnsweredAt:(old.lastAnsweredAt||'') > (value.lastAnsweredAt||'') ? old.lastAnsweredAt : value.lastAnsweredAt,
+            attempts:Math.max(Number(old.attempts)||0,Number(value.attempts)||0),
+            lastCorrect:(old.lastAnsweredAt||'') > (value.lastAnsweredAt||'') ? old.lastCorrect : value.lastCorrect
+          } : value;
+        }
+        save(PROGRESS_KEY,progress);refreshHome();renderTopics();alert(`Importazione completata: ${entries.length} domande riconosciute.`);
+      } catch(err) { alert('Impossibile importare il progresso: '+err.message); }
+      finally { e.target.value=''; }
+    };
+    function refreshHome() {
+      if (!data) return;
+      $('homeTotal').textContent=data.questions.length; $('homeSeen').textContent=data.questions.filter(q=>progress[q.id]).length;
+      $('resumeBtn').classList.toggle('hidden',!session || session.finished);
+    }
+    function renderTopics() {
+      if (!data) return;
+      const counts = new Map(), seen = new Map();
+      for (const q of data.questions) { counts.set(q.topic,(counts.get(q.topic)||0)+1); if (progress[q.id]) seen.set(q.topic,(seen.get(q.topic)||0)+1); }
+      $('topicsGrand').textContent=`${[...seen.values()].reduce((a,b)=>a+b,0)} / ${data.questions.length} affrontate`;
+      const list=$('topicList'); list.replaceChildren();
+      for (const [topic,total] of [...counts].sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0]))) {
+        const count=seen.get(topic)||0, box=document.createElement('div'); box.className='topic';
+        const row=document.createElement('div'); row.className='row'; const title=document.createElement('button'); title.type='button'; title.textContent=topic;
+        const stat=document.createElement('span');stat.className='muted';stat.textContent=`${count} / ${total} affrontate`;
+        row.append(title,stat);const track=document.createElement('div');track.className='track';const fill=document.createElement('div');fill.style.width=`${count/total*100}%`;track.append(fill);
+        const details=document.createElement('ol');details.className='topic-details hidden';
+        title.onclick=()=>{ if (!details.hasChildNodes()) for(const q of data.questions.filter(x=>x.topic===topic)){const li=document.createElement('li');li.className=progress[q.id]?'seen':'unseen';li.textContent=`${progress[q.id]?'✓':'○'} ${q.question}`;details.append(li);} details.classList.toggle('hidden'); };
+        box.append(row,track,details);list.append(box);
+      }
+    }
+    function start() {
+      if (!data) return;
+      if (session && !session.finished && !confirm('Il quiz in corso verrà sostituito. Vuoi iniziarne uno nuovo?')) return;
+      const pool=[...data.questions];for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+      const ids=pool.slice(0,Math.min(35,pool.length)).map(q=>q.id);
+      session={ids,answers:ids.map(()=>null),index:0,finished:false,draft:[]};save(SESSION_KEY,session);showQuestion();
+    }
+    $('startBtn').onclick=start;$('restartBtn').onclick=start;
+    $('resumeBtn').onclick=()=>{switchTab('quiz');showQuestion();};
+    $('reviewBtn').onclick=()=>{session.index=0;save(SESSION_KEY,session);showQuestion();};
+    function current() { return byId.get(session.ids[session.index]); }
+    function same(a,b) { return a.length===b.length && a.every(x=>b.includes(x)); }
+    function answer(keys) {
+      if(session.finished || session.answers[session.index] !== null) return;
+      const q=current();session.answers[session.index]=keys;
+      if (!progress[q.id]) progress[q.id]={firstAnsweredAt:new Date().toISOString()};
+      progress[q.id].lastAnsweredAt=new Date().toISOString();progress[q.id].attempts=(progress[q.id].attempts||0)+1;
+      progress[q.id].lastCorrect=same(keys,q.correct_answers);
+      session.draft=[];save(PROGRESS_KEY,progress);save(SESSION_KEY,session);refreshHome();showQuestion();
+    }
+    function showQuestion() {
+      if (!session) return;
+      $('home').classList.add('hidden');$('results').classList.add('hidden');$('quizCard').classList.remove('hidden');
+      const q=current(), i=session.index, picked=session.answers[i], chosen=picked || session.draft || [];
+      $('quizTopic').textContent=q.topic;$('quizPosition').textContent=`Domanda ${i+1} di ${session.ids.length}`;
+      $('quizProgress').style.width=`${(i+1)/session.ids.length*100}%`;
+      $('questionText').textContent=q.question;
+      const opts=$('options');opts.replaceChildren();
+      for (const o of q.options) {
+        const btn=document.createElement('button');btn.type='button';btn.className='option';btn.setAttribute('aria-pressed',chosen.includes(o.key)?'true':'false');
+        if (chosen.includes(o.key))btn.classList.add('selected');
+        if (picked!==null && q.correct_answers.includes(o.key))btn.classList.add('correct');
+        else if (picked!==null && picked.includes(o.key))btn.classList.add('incorrect');
+        const letter=document.createElement('span');letter.className='letter';letter.textContent=o.key;
+        const label=document.createElement('span');label.textContent=o.text;btn.append(letter,label);
+        btn.disabled=picked!==null || session.finished;
+        btn.onclick=()=>{
+          if(q.type==='multiple_answers') {const set=new Set(session.draft);set.has(o.key)?set.delete(o.key):set.add(o.key);session.draft=[...set];save(SESSION_KEY,session);showQuestion();}
+          else answer([o.key]);
+        };opts.append(btn);
+      }
+      const feedback=$('feedback'); feedback.classList.toggle('hidden',picked===null);
+      if (picked!==null) {const correct=same(picked,q.correct_answers);feedback.className=`feedback ${correct?'good':'bad'}`;feedback.textContent=correct?'✓ Risposta corretta!':`✕ Risposta sbagliata. Corretta: ${q.correct_answers.join(' e ')}.`;}
+      $('confirmBtn').classList.toggle('hidden',q.type!=='multiple_answers' || picked!==null || session.finished);
+      $('confirmBtn').disabled=!session.draft?.length;
+      $('prevBtn').disabled=i===0;$('nextBtn').classList.toggle('hidden',i===session.ids.length-1);
+      $('finishBtn').textContent=i===session.ids.length-1?'Vedi risultato':'Termina quiz';
+      if (session.finished) {$('finishBtn').textContent='Torna ai risultati';$('nextBtn').classList.toggle('hidden',i===session.ids.length-1);}
+    }
+    $('confirmBtn').onclick=()=>{if(session.draft?.length)answer([...session.draft]);};
+    $('prevBtn').onclick=()=>{if(session.index>0){session.index--;session.draft=[];save(SESSION_KEY,session);showQuestion();}};
+    $('nextBtn').onclick=()=>{if(session.index<session.ids.length-1){session.index++;session.draft=[];save(SESSION_KEY,session);showQuestion();}};
+    $('finishBtn').onclick=()=>{
+      if (!session.finished && session.answers.some(a=>a===null) && !confirm('Ci sono domande senza risposta. Vuoi terminare comunque?')) return;
+      session.finished=true;session.draft=[];save(SESSION_KEY,session);showResults();
+    };
+    function showResults() {
+      $('quizCard').classList.add('hidden');$('home').classList.add('hidden');$('results').classList.remove('hidden');
+      const n=session.ids.length, answered=session.answers.filter(a=>a!==null).length;
+      const correct=session.answers.filter((a,i)=>a!==null && same(a,byId.get(session.ids[i]).correct_answers)).length;
+      $('resultCorrect').textContent=correct;$('resultWrong').textContent=answered-correct;$('resultUnanswered').textContent=n-answered;
+      $('resultPercent').textContent=`${Math.round(correct/n*100)}% di risposte corrette`;
+    }
+    load();
+  })();
+  </script>
+</body>
+</html>
