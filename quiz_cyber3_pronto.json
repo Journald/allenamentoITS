@@ -7798,7 +7798,7 @@
       "options": [
         {
           "key": "A",
-          "text": "area investigazione sottocopertura;"
+          "text": "Area identificazione delle vittime, UACI, Area coordinamento investigazioni, area investigazione sottocopertura;"
         },
         {
           "key": "B",
@@ -13606,7 +13606,7 @@
         },
         {
           "key": "C",
-          "text": "Sono computazionalmente difficili da calcolare DNessuna delle precedenti"
+          "text": "Sono computazionalmente difficili da calcolare"
         },
         {
           "key": "D",
@@ -13693,7 +13693,7 @@
         },
         {
           "key": "C",
-          "text": "Crunch DWireshark"
+          "text": "Crunch"
         },
         {
           "key": "D",
@@ -15479,7 +15479,7 @@
       "source_page": 104
     },
     {
-      "question": "An attacker calls the HR department impersonating the CFO, urgently requesting a wire transfer due to",
+      "question": "An attacker calls the HR department impersonating the CFO, urgently requesting a wire transfer due to a “confidential acquisition.” The caller provides forged documents and uses insider jargon to build credibility. This is an example of:",
       "options": [
         {
           "key": "A",
